@@ -182,6 +182,67 @@ In this case, there are 3 query parameters:
 * `skip`, an `int` with a default value of `0`.
 * `limit`, an optional `int`.
 
+## Query Parameter URL Decoding
+
+By default, query parameters are "URL decoded". For example, if you have a URL like `http://example.com/?query=hello%20world`, the space `%20` is decoded and the query parameter `query` will have the value `hello world`.
+
+This is typically the desired behavior. However, there might be cases where you need to receive the query parameter value exactly as it appears in the URL, without URL decoding. For instance, if the query parameter itself is expected to contain a URL-encoded string that you want to process or pass on as is.
+
+You can control this behavior with the `decode_url` parameter in `Query`.
+
+`decode_url` is a boolean parameter:
+
+*   It defaults to `True`: query parameters are URL-decoded.
+*   If you set `decode_url=False`, **FastAPI** will not URL-decode the query parameter. You will receive the raw string.
+
+Here's an example:
+
+```python
+from fastapi import FastAPI, Query
+
+app = FastAPI()
+
+@app.get("/items/")
+async def read_items(
+    raw_query: str = Query(..., decode_url=False),
+    decoded_query: str = Query(...)  # Default decode_url=True
+):
+    return {"raw_query": raw_query, "decoded_query": decoded_query}
+
+```
+
+Let's say you call this endpoint with the URL:
+
+`/items/?raw_query=https%3A%2F%2Fexample.com%3Fq%3Dtest&decoded_query=https%3A%2F%2Fexample.com%3Fq%3Dtest`
+
+*   The `raw_query` parameter in your function will be the string `"https%3A%2F%2Fexample.com%3Fq%3Dtest"`.
+*   The `decoded_query` parameter will be the string `"https://example.com?q=test"`.
+
+You can test this behaviour. The example below uses `httpx` (which is used by `TestClient`).
+
+```python
+import httpx
+
+# Note: In a real FastAPI app, you'd use TestClient
+# from fastapi.testclient import TestClient
+# client = TestClient(app)
+
+encoded_url_part = "https%3A%2F%2Fexample.com%3Fq%3Dtest%26v%3D1"
+url = f"http://127.0.0.1:8000/items/?raw_query={encoded_url_part}&decoded_query={encoded_url_part}"
+
+# This is how you might call it with httpx directly
+# response = httpx.get(url)
+# print(response.json())
+
+# Expected output (if server is running with the app above):
+# {
+#     "raw_query": "https%3A%2F%2Fexample.com%3Fq%3Dtest%26v%3D1",
+#     "decoded_query": "https://example.com?q=test&v=1"
+# }
+```
+
+This feature allows you to handle specific query parameters that might contain pre-encoded data or require manual decoding later in your application logic, giving you more control over the raw input from the URL.
+
 /// tip
 
 You could also use `Enum`s the same way as with [Path Parameters](path-params.md#predefined-values){.internal-link target=_blank}.

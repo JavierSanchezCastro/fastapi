@@ -267,11 +267,13 @@ class Query(Param):
             ),
         ] = _Unset,
         openapi_examples: Optional[Dict[str, Example]] = None,
+        decode_url: bool = True,
         deprecated: Union[deprecated, str, bool, None] = None,
         include_in_schema: bool = True,
         json_schema_extra: Union[Dict[str, Any], None] = None,
         **extra: Any,
     ):
+        self.decode_url = decode_url
         super().__init__(
             default=default,
             default_factory=default_factory,

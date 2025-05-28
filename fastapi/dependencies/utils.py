@@ -643,16 +643,16 @@ async def solve_dependencies(
         if sub_dependant.cache_key not in dependency_cache:
             dependency_cache[sub_dependant.cache_key] = solved
     path_values, path_errors = request_params_to_args(
-        dependant.path_params, request.path_params
+        dependant.path_params, request.path_params, request
     )
     query_values, query_errors = request_params_to_args(
-        dependant.query_params, request.query_params
+        dependant.query_params, request.query_params, request
     )
     header_values, header_errors = request_params_to_args(
-        dependant.header_params, request.headers
+        dependant.header_params, request.headers, request
     )
     cookie_values, cookie_errors = request_params_to_args(
-        dependant.cookie_params, request.cookies
+        dependant.cookie_params, request.cookies, request
     )
     values.update(path_values)
     values.update(query_values)
@@ -737,9 +737,40 @@ def _get_multidict_value(
     return value
 
 
+def _get_raw_query_param_value(
+    raw_query_string: str, key_to_find: str, is_list: bool
+) -> Union[str, List[str], None]:
+    """
+    Parses a raw query string (decoded from bytes, but not URL-decoded)
+    to find values for a specific key.
+    """
+    extracted_raw_values: List[str] = []
+    if raw_query_string:
+        pairs = raw_query_string.split('&')
+        for pair in pairs:
+            if not pair:
+                continue
+            # Don't split on `&` within the value if the key itself is URL encoded
+            # and contains `=`, but standard query string parsing usually doesn't
+            # expect keys to be URL encoded in a way that includes `=` or `&`.
+            # For simplicity, we assume keys are simple strings or URL encoded without `=` or `&`.
+            parts = pair.split('=', 1)
+            key = parts[0]  # Key is not URL decoded here
+            if key == key_to_find:
+                raw_val = parts[1] if len(parts) > 1 else ""
+                extracted_raw_values.append(raw_val)
+
+    if not extracted_raw_values:
+        return None
+    if is_list:
+        return extracted_raw_values
+    return extracted_raw_values[0]
+
+
 def request_params_to_args(
     fields: Sequence[ModelField],
     received_params: Union[Mapping[str, Any], QueryParams, Headers],
+    request: HTTPConnection,
 ) -> Tuple[Dict[str, Any], List[Any]]:
     values: Dict[str, Any] = {}
     errors: List[Dict[str, Any]] = []
@@ -767,8 +798,6 @@ def request_params_to_args(
     for field in fields_to_extract:
         alias = None
         if isinstance(received_params, Headers):
-            # Handle fields extracted from a Pydantic Model for a header, each field
-            # doesn't have a FieldInfo of type Header with the default convert_underscores=True
             convert_underscores = getattr(
                 field.field_info, "convert_underscores", default_convert_underscores
             )
@@ -778,15 +807,33 @@ def request_params_to_args(
                     if field.alias != field.name
                     else field.name.replace("_", "-")
                 )
-        value = _get_multidict_value(field, received_params, alias=alias)
+        
+        # Custom logic for query parameters with decode_url=False
+        if isinstance(field.field_info, params.Query) and \
+           isinstance(received_params, QueryParams): # Ensure it's actually query params
+            should_decode = getattr(field.field_info, 'decode_url', True)
+            if not should_decode:
+                raw_query_string_bytes = request.scope.get('query_string', b'')
+                raw_query_string_decoded = raw_query_string_bytes.decode('utf-8', errors='replace')
+                value = _get_raw_query_param_value(
+                    raw_query_string_decoded,
+                    alias or field.alias, # Use alias if defined for headers, else field.alias
+                    is_sequence_field(field)
+                )
+                # If value is None from raw parsing, Pydantic's required/default logic later will handle it
+            else:
+                value = _get_multidict_value(field, received_params, alias=alias)
+        else: # Original logic for headers, path, cookies, or decoded query params
+            value = _get_multidict_value(field, received_params, alias=alias)
+
         if value is not None:
             params_to_process[field.name] = value
         processed_keys.add(alias or field.alias)
         processed_keys.add(field.name)
 
-    for key, value in received_params.items():
+    for key, value_item in received_params.items(): # Renamed value to value_item to avoid conflict
         if key not in processed_keys:
-            params_to_process[key] = value
+            params_to_process[key] = value_item
 
     if single_not_embedded_field:
         field_info = first_field.field_info
@@ -794,20 +841,67 @@ def request_params_to_args(
             "Params must be subclasses of Param"
         )
         loc: Tuple[str, ...] = (field_info.in_.value,)
+        # Use params_to_process which contains all extracted values
         v_, errors_ = _validate_value_with_model_field(
             field=first_field, value=params_to_process, values=values, loc=loc
         )
         return {first_field.name: v_}, errors_
 
     for field in fields:
-        value = _get_multidict_value(field, received_params)
+        # This loop processes individual fields for non-embedded cases or after initial extraction
+        # For query params with decode_url=False, we need to re-fetch or use pre-fetched raw value.
+        # For simplicity and to ensure correct context, let's re-evaluate the value source here
+        # This logic is becoming complex due to single_not_embedded_field and fields_to_extract
+        # The params_to_process dict should ideally hold the correctly (raw or decoded) extracted values already.
+        # However, the current structure iterates `fields` again.
+        # Let's try to use the value from params_to_process if available,
+        # otherwise re-evaluate (this might be redundant if params_to_process is comprehensive)
+
+        value_from_params_to_process = params_to_process.get(field.name)
+
+        # Re-check for query params needing raw values if not found or if logic requires re-evaluation
+        final_value_for_validation = None
+        if isinstance(field.field_info, params.Query) and \
+           isinstance(received_params, QueryParams):
+            should_decode = getattr(field.field_info, 'decode_url', True)
+            if not should_decode:
+                # If already processed and in params_to_process, it should be the raw value
+                # This branch might be complex to hit if params_to_process is correctly populated.
+                # For now, assume params_to_process has the correct raw value if key exists.
+                if field.name in params_to_process:
+                    final_value_for_validation = params_to_process[field.name]
+                else: # Fallback: re-fetch raw if somehow missed (should ideally not happen)
+                    raw_query_string_bytes = request.scope.get('query_string', b'')
+                    raw_query_string_decoded = raw_query_string_bytes.decode('utf-8', errors='replace')
+                    current_alias = field.alias # In this loop, field.alias is the direct one
+                    final_value_for_validation = _get_raw_query_param_value(
+                        raw_query_string_decoded,
+                        current_alias,
+                        is_sequence_field(field)
+                    )
+            else: # Should be decoded
+                final_value_for_validation = _get_multidict_value(field, received_params) # Original logic
+        else: # Not a query param, or a query param that should be decoded
+            final_value_for_validation = _get_multidict_value(field, received_params)
+
+
+        # The following block handles default values if _get_multidict_value or _get_raw_query_param_value returned None
+        if final_value_for_validation is None:
+            if field.required:
+                # Missing required field: _validate_value_with_model_field will create error
+                pass
+            else:
+                # Not required and no value provided: use default
+                final_value_for_validation = deepcopy(field.default)
+
+
         field_info = field.field_info
         assert isinstance(field_info, params.Param), (
             "Params must be subclasses of Param"
         )
         loc = (field_info.in_.value, field.alias)
         v_, errors_ = _validate_value_with_model_field(
-            field=field, value=value, values=values, loc=loc
+            field=field, value=final_value_for_validation, values=values, loc=loc
         )
         if errors_:
             errors.extend(errors_)

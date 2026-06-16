@@ -4,7 +4,7 @@
 
 **FastAPI**는 모든 유연성을 유지하면서도 애플리케이션을 구조화할 수 있게 해주는 편리한 도구를 제공합니다.
 
-/// info | 정보
+/// note | 참고
 
 Flask를 사용해 보셨다면, 이는 Flask의 Blueprints에 해당하는 개념입니다.
 
@@ -123,7 +123,7 @@ from app.routers import items
 
 이 예시를 단순화하기 위해 임의로 만든 헤더를 사용하고 있습니다.
 
-하지만 실제 상황에서는 통합된 [Security 유틸리티](security/index.md){.internal-link target=_blank}를 사용하는 것이 더 좋은 결과를 얻을 수 있습니다.
+하지만 실제 상황에서는 통합된 [Security 유틸리티](security/index.md)를 사용하는 것이 더 좋은 결과를 얻을 수 있습니다.
 
 ///
 
@@ -169,7 +169,7 @@ async def read_item(item_id: str):
 
 /// tip | 팁
 
-[*path operation decorator의 dependencies*](dependencies/dependencies-in-path-operation-decorators.md){.internal-link target=_blank}와 마찬가지로, *path operation function*에 어떤 값도 전달되지 않습니다.
+[*path operation decorator의 dependencies*](dependencies/dependencies-in-path-operation-decorators.md)와 마찬가지로, *path operation function*에 어떤 값도 전달되지 않습니다.
 
 ///
 
@@ -185,8 +185,8 @@ async def read_item(item_id: str):
 * 모두 미리 정의된 `responses`를 포함합니다.
 * 이 모든 *path operations*는 실행되기 전에 `dependencies` 목록이 평가/실행됩니다.
     * 특정 *path operation*에 dependencies를 추가로 선언하면 **그것들도 실행됩니다**.
-    * router dependencies가 먼저 실행되고, 그 다음에 [decorator의 `dependencies`](dependencies/dependencies-in-path-operation-decorators.md){.internal-link target=_blank}, 그리고 일반 파라미터 dependencies가 실행됩니다.
-    * [`scopes`가 있는 `Security` dependencies](../advanced/security/oauth2-scopes.md){.internal-link target=_blank}도 추가할 수 있습니다.
+    * router dependencies가 먼저 실행되고, 그 다음에 [decorator의 `dependencies`](dependencies/dependencies-in-path-operation-decorators.md), 그리고 일반 파라미터 dependencies가 실행됩니다.
+    * [`scopes`가 있는 `Security` dependencies](../advanced/security/oauth2-scopes.md)도 추가할 수 있습니다.
 
 /// tip | 팁
 
@@ -194,7 +194,7 @@ async def read_item(item_id: str):
 
 ///
 
-/// check | 확인
+/// tip | 팁
 
 `prefix`, `tags`, `responses`, `dependencies` 파라미터는 (다른 많은 경우와 마찬가지로) 코드 중복을 피하도록 도와주는 **FastAPI**의 기능입니다.
 
@@ -303,7 +303,7 @@ from ...dependencies import get_token_header
 
 평소처럼 `FastAPI` 클래스를 import하고 생성합니다.
 
-또한 각 `APIRouter`의 dependencies와 결합될 [global dependencies](dependencies/global-dependencies.md){.internal-link target=_blank}도 선언할 수 있습니다:
+또한 각 `APIRouter`의 dependencies와 결합될 [global dependencies](dependencies/global-dependencies.md)도 선언할 수 있습니다:
 
 {* ../../docs_src/bigger_applications/app_an_py310/main.py hl[1,3,7] title["app/main.py"] *}
 
@@ -339,7 +339,7 @@ from .routers import items, users
 from app.routers import items, users
 ```
 
-/// info | 정보
+/// note | 참고
 
 첫 번째 버전은 "상대 import"입니다:
 
@@ -353,7 +353,7 @@ from .routers import items, users
 from app.routers import items, users
 ```
 
-Python Packages와 Modules에 대해 더 알아보려면 <a href="https://docs.python.org/3/tutorial/modules.html" class="external-link" target="_blank">Modules에 대한 Python 공식 문서</a>를 읽어보세요.
+Python Packages와 Modules에 대해 더 알아보려면 [Modules에 대한 Python 공식 문서](https://docs.python.org/3/tutorial/modules.html)를 읽어보세요.
 
 ///
 
@@ -382,7 +382,7 @@ from .routers.users import router
 
 {* ../../docs_src/bigger_applications/app_an_py310/main.py hl[10:11] title["app/main.py"] *}
 
-/// info | 정보
+/// note | 참고
 
 `users.router`는 `app/routers/users.py` 파일 안의 `APIRouter`를 담고 있습니다.
 
@@ -396,17 +396,17 @@ from .routers.users import router
 
 /// note | 기술 세부사항
 
-내부적으로는 `APIRouter`에 선언된 각 *path operation*마다 *path operation*을 실제로 생성합니다.
+FastAPI는 메인 애플리케이션에 router를 포함해도 원래의 `APIRouter`와 그 `APIRoute`들을 활성 상태로 유지합니다.
 
-즉, 내부적으로는 모든 것이 동일한 하나의 앱인 것처럼 동작합니다.
+즉, 커스텀 `APIRouter`와 `APIRoute` 서브클래스가 포함된 이후에도 계속 작동할 수 있습니다.
 
 ///
 
-/// check | 확인
+/// tip | 팁
 
 router를 포함(include)할 때 성능을 걱정할 필요는 없습니다.
 
-이 작업은 마이크로초 단위이며 시작 시에만 발생합니다.
+이 기능은 매우 가볍게 설계되었고 각 요청에 오버헤드를 추가하지 않도록 되어 있습니다.
 
 따라서 성능에 영향을 주지 않습니다. ⚡
 
@@ -451,7 +451,7 @@ router를 포함(include)할 때 성능을 걱정할 필요는 없습니다.
 
 그리고 `app.include_router()`로 추가한 다른 모든 *path operations*와 함께 올바르게 동작합니다.
 
-/// info | 매우 기술적인 세부사항
+/// note | 매우 기술적인 세부사항
 
 **참고**: 이는 매우 기술적인 세부사항이라 아마 **그냥 건너뛰어도 됩니다**.
 
@@ -459,9 +459,40 @@ router를 포함(include)할 때 성능을 걱정할 필요는 없습니다.
 
 `APIRouter`는 "mount"되는 것이 아니며, 애플리케이션의 나머지 부분과 격리되어 있지 않습니다.
 
-이는 OpenAPI 스키마와 사용자 인터페이스에 그들의 *path operations*를 포함시키고 싶기 때문입니다.
+이는 OpenAPI 스키마와 사용자 인터페이스에 그들의 *path operations*를 포함시키기 위함입니다.
 
-나머지와 독립적으로 격리해 "mount"할 수 없으므로, *path operations*는 직접 포함되는 것이 아니라 "clone"(재생성)됩니다.
+FastAPI는 원래의 router와 *path operations*를 활성 상태로 유지하고, 요청을 처리하고 OpenAPI를 생성할 때 router의 prefix, dependencies, tags, responses 및 기타 메타데이터를 결합합니다.
+
+///
+
+## `pyproject.toml`에서 `entrypoint` 구성하기 { #configure-the-entrypoint-in-pyproject-toml }
+
+FastAPI `app` 객체가 `app/main.py`에 있으므로 `pyproject.toml` 파일에서 `entrypoint`를 다음과 같이 구성할 수 있습니다:
+
+```toml
+[tool.fastapi]
+entrypoint = "app.main:app"
+```
+
+이는 다음과 같이 import하는 것과 동일합니다:
+
+```python
+from app.main import app
+```
+
+이렇게 하면 `fastapi` 명령어가 여러분의 앱이 어디에 있는지 알 수 있습니다.
+
+/// Note | 참고
+
+명령어에 경로를 직접 전달할 수도 있습니다:
+
+```console
+$ fastapi dev app/main.py
+```
+
+하지만 `fastapi` 명령어를 실행할 때마다 올바른 경로를 기억해 전달해야 합니다.
+
+또한 [VS Code 확장](../editor-support.md)이나 [FastAPI Cloud](https://fastapicloud.com) 같은 다른 도구들이 이를 찾지 못할 수도 있으므로, `pyproject.toml`의 `entrypoint`를 사용하는 것을 권장합니다.
 
 ///
 
@@ -472,14 +503,14 @@ router를 포함(include)할 때 성능을 걱정할 필요는 없습니다.
 <div class="termy">
 
 ```console
-$ fastapi dev app/main.py
+$ fastapi dev
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
 </div>
 
-그리고 <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>에서 문서를 여세요.
+그리고 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)에서 문서를 여세요.
 
 올바른 경로(및 prefix)와 올바른 태그를 사용해, 모든 submodule의 경로를 포함한 자동 API 문서를 볼 수 있습니다:
 
@@ -501,4 +532,16 @@ $ fastapi dev app/main.py
 router.include_router(other_router)
 ```
 
-`FastAPI` 앱에 `router`를 포함하기 전에 수행해야 하며, 그래야 `other_router`의 *path operations*도 함께 포함됩니다.
+`router`를 `FastAPI` 앱에 포함하기 전이든 후든, 어느 시점에 해도 됩니다. FastAPI는 라우팅과 OpenAPI에 `other_router`의 *path operations*도 포함합니다.
+
+나중에 router들에 추가된 *path operations*도 동일하게 적용됩니다. 이전에 수행한 포함을 통해서도 보이게 됩니다.
+
+/// warning | 기술 세부사항
+
+router를 포함한 뒤에 `router.routes`를 직접 변형하는 것은 피하세요. FastAPI는 router 포함을 실시간으로 처리하므로, 원래 router와 그 routes는 라우팅과 OpenAPI 생성의 일부로 남아 있습니다.
+
+경로와 router를 추가할 때는 path operation 데코레이터와 `.include_router()` 같은 문서화된 API를 사용하세요.
+
+`router.routes`는 최종 *path operations*의 평탄화된 목록이 아니라, route 정의와 포함된 router를 담는 하위 수준의 트리로 취급하고, 여기에 의존하지 마세요.
+
+///

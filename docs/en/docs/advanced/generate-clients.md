@@ -30,9 +30,7 @@ Their sponsorship also demonstrates a strong commitment to the FastAPI **communi
 
 For example, you might want to try:
 
-* [Speakeasy](https://speakeasy.com/editor?utm_source=fastapi+repo&utm_medium=github+sponsorship)
 * [Stainless](https://www.stainless.com/?utm_source=fastapi&utm_medium=referral)
-* [liblab](https://developers.liblab.com/tutorials/sdk-for-fastapi?utm_source=fastapi)
 
 Some of these solutions may also be open source or offer free tiers, so you can try them without a financial commitment. Other commercial SDK generators are available and can be found online. 🤓
 

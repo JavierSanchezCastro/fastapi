@@ -11,7 +11,7 @@
 * 번역에서 문제가 없는지 확인합니다.
 * 필요하다면 언어별 프롬프트, 일반 프롬프트, 또는 영어 문서를 개선합니다.
 * 그런 다음 번역에서 남아 있는 문제를 수동으로 수정해 좋은 번역이 되게 합니다.
-* 좋은 번역을 둔 상태에서 다시 번역합니다. 이상적인 결과는 LLM이 더 이상 번역에 변경을 만들지 않는 것입니다. 이는 일반 프롬프트와 언어별 프롬프트가 가능한 한 최선이라는 뜻입니다(때때로 몇 가지 seemingly random 변경을 할 수 있는데, 그 이유는 <a href="https://doublespeak.chat/#/handbook#deterministic-output" class="external-link" target="_blank">LLM은 결정론적 알고리즘이 아니기 때문</a>입니다).
+* 좋은 번역을 둔 상태에서 다시 번역합니다. 이상적인 결과는 LLM이 더 이상 번역에 변경을 만들지 않는 것입니다. 이는 일반 프롬프트와 언어별 프롬프트가 가능한 한 최선이라는 뜻입니다(때때로 몇 가지 seemingly random 변경을 할 수 있는데, 그 이유는 [LLM은 결정론적 알고리즘이 아니기 때문](https://doublespeak.chat/#/handbook#deterministic-output)입니다).
 
 테스트:
 
@@ -124,19 +124,11 @@ works(foo="bar")  # 이건 동작합니다 🎉
 
 //// tab | 테스트
 
-/// info | 정보
-일부 텍스트
-///
-
 /// note | 참고
 일부 텍스트
 ///
 
 /// note | 기술 세부사항
-일부 텍스트
-///
-
-/// check | 확인
 일부 텍스트
 ///
 
@@ -158,7 +150,7 @@ works(foo="bar")  # 이건 동작합니다 🎉
 
 탭과 `Info`/`Note`/`Warning`/등의 블록은 제목 번역을 수직 막대(`|`) 뒤에 추가해야 합니다.
 
-`scripts/translate.py`의 일반 프롬프트에서 `### Special blocks`와 `### Tab blocks` 섹션을 참고하세요.
+`scripts/translate.py`의 일반 프롬프트에서 `### Special blocks`와 `### Tab blocks` 석션을 참고하세요.
 
 ////
 
@@ -169,15 +161,15 @@ works(foo="bar")  # 이건 동작합니다 🎉
 링크 텍스트는 번역되어야 하고, 링크 주소는 변경되지 않아야 합니다:
 
 * [위의 제목으로 가는 링크](#code-snippets)
-* [내부 링크](index.md#installation){.internal-link target=_blank}
-* <a href="https://sqlmodel.tiangolo.com/" class="external-link" target="_blank">외부 링크</a>
-* <a href="https://fastapi.tiangolo.com/css/styles.css" class="external-link" target="_blank">스타일로 가는 링크</a>
-* <a href="https://fastapi.tiangolo.com/js/logic.js" class="external-link" target="_blank">스크립트로 가는 링크</a>
-* <a href="https://fastapi.tiangolo.com/img/foo.jpg" class="external-link" target="_blank">이미지로 가는 링크</a>
+* [내부 링크](index.md#installation)
+* [외부 링크](https://sqlmodel.tiangolo.com/)
+* [스타일로 가는 링크](https://fastapi.tiangolo.com/css/styles.css)
+* [스크립트로 가는 링크](https://fastapi.tiangolo.com/js/logic.js)
+* [이미지로 가는 링크](https://fastapi.tiangolo.com/img/foo.jpg)
 
 링크 텍스트는 번역되어야 하고, 링크 주소는 번역 페이지를 가리켜야 합니다:
 
-* <a href="https://fastapi.tiangolo.com/ko/" class="external-link" target="_blank">FastAPI 링크</a>
+* [FastAPI 링크](https://fastapi.tiangolo.com/ko/)
 
 ////
 
@@ -248,7 +240,7 @@ works(foo="bar")  # 이건 동작합니다 🎉
 
 `scripts/translate.py`의 일반 프롬프트에서 `### Headings` 섹션을 참고하세요.
 
-언어별 지침은 예를 들어 `docs/de/llm-prompt.md`의 `### Headings` 섹션을 참고하세요.
+언어별 지침은 예를 들어 `docs/de/llm-prompt.md`의 `### Headings` 석션을 참고하세요.
 
 ////
 
@@ -259,8 +251,8 @@ works(foo="bar")  # 이건 동작합니다 🎉
 * 여러분
 * 여러분의
 
-* 예: (e.g.)
-* 등 (etc.)
+* 예:
+* 등
 
 * `foo`로서의 `int`
 * `bar`로서의 `str`
@@ -498,6 +490,6 @@ works(foo="bar")  # 이건 동작합니다 🎉
 
 이것은 문서에서 보이는 (대부분) 기술 용어의 불완전하고 비규범적인 목록입니다. 프롬프트 설계자가 어떤 용어에 대해 LLM에 추가적인 도움이 필요한지 파악하는 데 유용할 수 있습니다. 예를 들어, 좋은 번역을 계속 덜 좋은 번역으로 되돌릴 때, 또는 언어에서 용어의 활용/변화를 처리하는 데 문제가 있을 때 도움이 됩니다.
 
-예를 들어 `docs/de/llm-prompt.md`의 `### List of English terms and their preferred German translations` 섹션을 참고하세요.
+예를 들어 `docs/de/llm-prompt.md`의 `### List of English terms and their preferred German translations` 석션을 참고하세요.
 
 ////

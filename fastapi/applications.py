@@ -1,10 +1,6 @@
 from collections.abc import Awaitable, Callable, Coroutine, Sequence
 from enum import Enum
-from typing import (
-    Annotated,
-    Any,
-    TypeVar,
-)
+from typing import Annotated, Any, TypeVar
 
 from annotated_doc import Doc
 from fastapi import routing
@@ -925,6 +921,7 @@ class FastAPI(Starlette):
             ),
         ] = "3.1.0"
         self.openapi_schema: dict[str, Any] | None = None
+        self._openapi_routes_version: int | None = None
         if self.openapi_url:
             assert self.title, "A title must be provided for OpenAPI, e.g.: 'My API'"
             assert self.version, "A version must be provided for OpenAPI, e.g.: '2.1.0'"
@@ -1006,11 +1003,12 @@ class FastAPI(Starlette):
         self.exception_handlers.setdefault(
             RequestValidationError, request_validation_exception_handler
         )
+
+        # Starlette still has incorrect type specification for the handlers
         self.exception_handlers.setdefault(
             WebSocketRequestValidationError,
-            # Starlette still has incorrect type specification for the handlers
-            websocket_request_validation_exception_handler,  # type: ignore
-        )
+            websocket_request_validation_exception_handler,  # type: ignore[arg-type]
+        )  # ty: ignore[no-matching-overload]
 
         self.user_middleware: list[Middleware] = (
             [] if middleware is None else list(middleware)
@@ -1036,7 +1034,9 @@ class FastAPI(Starlette):
             + self.user_middleware
             + [
                 Middleware(
-                    ExceptionMiddleware, handlers=exception_handlers, debug=debug
+                    ExceptionMiddleware,
+                    handlers=exception_handlers,
+                    debug=debug,
                 ),
                 # Add FastAPI-specific AsyncExitStackMiddleware for closing files.
                 # Before this was also used for closing dependencies with yield but
@@ -1080,7 +1080,8 @@ class FastAPI(Starlette):
         Read more in the
         [FastAPI docs for OpenAPI](https://fastapi.tiangolo.com/how-to/extending-openapi/).
         """
-        if not self.openapi_schema:
+        routes_version = self.router._get_routes_version()
+        if not self.openapi_schema or self._openapi_routes_version != routes_version:
             self.openapi_schema = get_openapi(
                 title=self.title,
                 version=self.version,
@@ -1097,6 +1098,7 @@ class FastAPI(Starlette):
                 separate_input_output_schemas=self.separate_input_output_schemas,
                 external_docs=self.openapi_external_docs,
             )
+            self._openapi_routes_version = routes_version
         return self.openapi_schema
 
     def setup(self) -> None:
@@ -4596,7 +4598,7 @@ class FastAPI(Starlette):
         Read more about it in the
         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/#alternative-events-deprecated).
         """
-        return self.router.on_event(event_type)
+        return self.router.on_event(event_type)  # ty: ignore[deprecated]
 
     def middleware(
         self,

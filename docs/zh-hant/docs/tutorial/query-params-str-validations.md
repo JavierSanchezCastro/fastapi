@@ -29,19 +29,19 @@ FastAPI 會因為預設值是 `= None` 而知道 `q` 不是必填。
 
 {* ../../docs_src/query_params_str_validations/tutorial002_an_py310.py hl[1,3] *}
 
-/// info | 說明
+/// note | 注意
 
 FastAPI 自 0.95.0 版起加入並開始推薦使用 `Annotated`。
 
 如果你的版本較舊，嘗試使用 `Annotated` 會出錯。
 
-請先至少 [升級 FastAPI 版本](../deployment/versions.md#upgrading-the-fastapi-versions){.internal-link target=_blank} 到 0.95.1 再使用 `Annotated`。
+請先至少 [升級 FastAPI 版本](../deployment/versions.md#upgrading-the-fastapi-versions) 到 0.95.1 再使用 `Annotated`。
 
 ///
 
 ## 在 `q` 參數的型別中使用 `Annotated` { #use-annotated-in-the-type-for-the-q-parameter }
 
-還記得先前在 [Python 型別介紹](../python-types.md#type-hints-with-metadata-annotations){.internal-link target=_blank} 提到可以用 `Annotated` 為參數加入中繼資料嗎？
+還記得先前在 [Python 型別介紹](../python-types.md#type-hints-with-metadata-annotations) 提到可以用 `Annotated` 為參數加入中繼資料嗎？
 
 現在就用在 FastAPI 上吧。🚀
 
@@ -157,7 +157,7 @@ q: str = Query(default="rick")
 
 若不使用 `Annotated`、改用「（舊式）預設值」寫法，你在沒有 FastAPI 的「其他地方」呼叫該函式時，就得「記得」傳入正確參數，否則值會和預期不同（例如會得到 `QueryInfo` 或類似的東西，而不是 `str`）。你的編輯器不會提示，Python 執行該函式時也不會抱怨，只有在內部操作失敗時才會出錯。
 
-因為 `Annotated` 可以有多個中繼資料註解，你甚至可以用同一個函式配合其他工具，例如 <a href="https://typer.tiangolo.com/" class="external-link" target="_blank">Typer</a>。🚀
+因為 `Annotated` 可以有多個中繼資料註解，你甚至可以用同一個函式配合其他工具，例如 [Typer](https://typer.tiangolo.com/)。🚀
 
 ## 加入更多驗證 { #add-more-validations }
 
@@ -167,7 +167,7 @@ q: str = Query(default="rick")
 
 ## 加入正規表示式 { #add-regular-expressions }
 
-你可以定義參數必須符合的 <dfn title="正規表示式（regex、regexp）是一組用於定義字串搜尋樣式的字元序列。">regular expression</dfn> `pattern`：
+你可以定義參數必須符合的 <dfn title="正規表示式（regex、regexp）是一組用於定義字串搜尋樣式的字元序列。">正規表示式</dfn> `pattern`：
 
 {* ../../docs_src/query_params_str_validations/tutorial004_an_py310.py hl[11] *}
 
@@ -369,11 +369,11 @@ http://127.0.0.1:8000/items/?item-query=foobaritems
 
 這種情況下，你可以使用「自訂驗證函式」，它會在一般驗證之後套用（例如先確認值是 `str` 之後）。
 
-你可以在 `Annotated` 中使用 <a href="https://docs.pydantic.dev/latest/concepts/validators/#field-after-validator" class="external-link" target="_blank">Pydantic 的 `AfterValidator`</a> 來達成。
+你可以在 `Annotated` 中使用 [Pydantic 的 `AfterValidator`](https://docs.pydantic.dev/latest/concepts/validators/#field-after-validator) 來達成。
 
 /// tip | 提示
 
-Pydantic 也有 <a href="https://docs.pydantic.dev/latest/concepts/validators/#field-before-validator" class="external-link" target="_blank">`BeforeValidator`</a> 等等。🤓
+Pydantic 也有 [`BeforeValidator`](https://docs.pydantic.dev/latest/concepts/validators/#field-before-validator) 等等。🤓
 
 ///
 
@@ -381,7 +381,7 @@ Pydantic 也有 <a href="https://docs.pydantic.dev/latest/concepts/validators/#f
 
 {* ../../docs_src/query_params_str_validations/tutorial015_an_py310.py hl[5,16:19,24] *}
 
-/// info | 說明
+/// note | 注意
 
 這需搭配 Pydantic 2 或以上版本。😎
 
@@ -411,7 +411,7 @@ Pydantic 也有 <a href="https://docs.pydantic.dev/latest/concepts/validators/#f
 
 #### 隨機項目 { #a-random-item }
 
-透過 `data.items()` 我們會得到一個包含每個字典項目鍵值對 tuple 的 <dfn title="可以用 for 迴圈遍歷的東西，例如 list、set 等等。">iterable object</dfn>。
+透過 `data.items()` 我們會得到一個包含每個字典項目鍵值對 tuple 的 <dfn title="可以用 for 迴圈遍歷的東西，例如 list、set 等等。">可疊代物件</dfn>。
 
 我們用 `list(data.items())` 把這個可疊代物件轉成正式的 `list`。
 

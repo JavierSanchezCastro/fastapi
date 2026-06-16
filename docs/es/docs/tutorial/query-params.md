@@ -65,7 +65,7 @@ De la misma manera, puedes declarar parámetros de query opcionales, establecien
 
 En este caso, el parámetro de función `q` será opcional y será `None` por defecto.
 
-/// check | Revisa
+/// tip | Consejo
 
 Además, nota que **FastAPI** es lo suficientemente inteligente para notar que el parámetro de path `item_id` es un parámetro de path y `q` no lo es, por lo tanto, es un parámetro de query.
 
@@ -182,6 +182,6 @@ En este caso, hay 3 parámetros de query:
 
 /// tip | Consejo
 
-También podrías usar `Enum`s de la misma manera que con [Parámetros de Path](path-params.md#predefined-values){.internal-link target=_blank}.
+También podrías usar `Enum`s de la misma manera que con [Parámetros de Path](path-params.md#predefined-values).
 
 ///

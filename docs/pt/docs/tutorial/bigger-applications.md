@@ -4,7 +4,7 @@ Se você está construindo uma aplicação ou uma API web, é raro que você pos
 
 **FastAPI** oferece uma ferramenta conveniente para estruturar sua aplicação, mantendo toda a flexibilidade.
 
-/// info | Informação
+/// note | Nota
 
 Se você vem do Flask, isso seria o equivalente aos Blueprints do Flask.
 
@@ -123,7 +123,7 @@ Agora usaremos uma dependência simples para ler um cabeçalho `X-Token` persona
 
 Estamos usando um cabeçalho inventado para simplificar este exemplo.
 
-Mas em casos reais, você obterá melhores resultados usando os [Utilitários de Segurança](security/index.md){.internal-link target=_blank} integrados.
+Mas em casos reais, você obterá melhores resultados usando os [Utilitários de Segurança](security/index.md) integrados.
 
 ///
 
@@ -169,7 +169,7 @@ E podemos adicionar uma list de `dependencies` que serão adicionadas a todas as
 
 /// tip | Dica
 
-Observe que, assim como [dependências em *decoradores de operação de rota*](dependencies/dependencies-in-path-operation-decorators.md){.internal-link target=_blank}, nenhum valor será passado para sua *função de operação de rota*.
+Observe que, assim como [dependências em *decoradores de operação de rota*](dependencies/dependencies-in-path-operation-decorators.md), nenhum valor será passado para sua *função de operação de rota*.
 
 ///
 
@@ -185,8 +185,8 @@ O resultado final é que os paths dos itens agora são:
 * Todas elas incluirão as `responses` predefinidas.
 * Todas essas *operações de rota* terão a list de `dependencies` avaliada/executada antes delas.
     * Se você também declarar dependências em uma *operação de rota* específica, **elas também serão executadas**.
-    * As dependências do router são executadas primeiro, depois as [`dependencies` no decorador](dependencies/dependencies-in-path-operation-decorators.md){.internal-link target=_blank} e, em seguida, as dependências de parâmetros normais.
-    * Você também pode adicionar [dependências de `Segurança` com `scopes`](../advanced/security/oauth2-scopes.md){.internal-link target=_blank}.
+    * As dependências do router são executadas primeiro, depois as [`dependencies` no decorador](dependencies/dependencies-in-path-operation-decorators.md) e, em seguida, as dependências de parâmetros normais.
+    * Você também pode adicionar [dependências de `Segurança` com `scopes`](../advanced/security/oauth2-scopes.md).
 
 /// tip | Dica
 
@@ -194,7 +194,7 @@ Ter `dependencies` no `APIRouter` pode ser usado, por exemplo, para exigir auten
 
 ///
 
-/// check | Verifique
+/// tip | Dica
 
 Os parâmetros `prefix`, `tags`, `responses` e `dependencies` são (como em muitos outros casos) apenas um recurso do **FastAPI** para ajudar a evitar duplicação de código.
 
@@ -303,7 +303,7 @@ E como a maior parte de sua lógica agora viverá em seu próprio módulo espec�
 
 Você importa e cria uma classe `FastAPI` normalmente.
 
-E podemos até declarar [dependências globais](dependencies/global-dependencies.md){.internal-link target=_blank} que serão combinadas com as dependências para cada `APIRouter`:
+E podemos até declarar [dependências globais](dependencies/global-dependencies.md) que serão combinadas com as dependências para cada `APIRouter`:
 
 {* ../../docs_src/bigger_applications/app_an_py310/main.py hl[1,3,7] title["app/main.py"] *}
 
@@ -339,7 +339,7 @@ Também poderíamos importá-los como:
 from app.routers import items, users
 ```
 
-/// info | Informação
+/// note | Nota
 
 A primeira versão é uma "importação relativa":
 
@@ -353,7 +353,7 @@ A segunda versão é uma "importação absoluta":
 from app.routers import items, users
 ```
 
-Para saber mais sobre pacotes e módulos Python, leia <a href="https://docs.python.org/3/tutorial/modules.html" class="external-link" target="_blank">a documentação oficial do Python sobre módulos</a>.
+Para saber mais sobre pacotes e módulos Python, leia [a documentação oficial do Python sobre módulos](https://docs.python.org/3/tutorial/modules.html).
 
 ///
 
@@ -382,11 +382,11 @@ Agora, vamos incluir os `router`s dos submódulos `users` e `items`:
 
 {* ../../docs_src/bigger_applications/app_an_py310/main.py hl[10:11] title["app/main.py"] *}
 
-/// info | Informação
+/// note | Detalhes Técnicos
 
-`users.router` contém o `APIRouter` dentro do arquivo `app/routers/users.py`.
+O FastAPI mantém o `APIRouter` original e seus `APIRoute`s ativos quando o router é incluído na aplicação principal.
 
-E `items.router` contém o `APIRouter` dentro do arquivo `app/routers/items.py`.
+Isso significa que subclasses personalizadas de `APIRouter` e `APIRoute` ainda podem participar depois que o router é incluído.
 
 ///
 
@@ -394,19 +394,11 @@ Com `app.include_router()` podemos adicionar cada `APIRouter` ao aplicativo prin
 
 Ele incluirá todas as rotas daquele router como parte dele.
 
-/// note | Detalhes Técnicos
-
-Na verdade, ele criará internamente uma *operação de rota* para cada *operação de rota* que foi declarada no `APIRouter`.
-
-Então, nos bastidores, ele realmente funcionará como se tudo fosse o mesmo aplicativo único.
-
-///
-
-/// check | Verifique
+/// tip | Dica
 
 Você não precisa se preocupar com desempenho ao incluir routers.
 
-Isso levará microssegundos e só acontecerá na inicialização.
+Isso foi projetado para ser leve e evitar adicionar overhead a cada request.
 
 Então não afetará o desempenho. ⚡
 
@@ -461,7 +453,38 @@ Os `APIRouter`s não são "montados", eles não são isolados do resto do aplica
 
 Isso ocorre porque queremos incluir suas *operações de rota* no esquema OpenAPI e nas interfaces de usuário.
 
-Como não podemos simplesmente isolá-los e "montá-los" independentemente do resto, as *operações de rota* são "clonadas" (recriadas), não incluídas diretamente.
+O FastAPI mantém os routers e as operações de rota originais ativos e combina os prefixos, dependências, tags, responses e outros metadados do router ao tratar as requisições e gerar o OpenAPI.
+
+///
+
+## Configure o `entrypoint` em `pyproject.toml` { #configure-the-entrypoint-in-pyproject-toml }
+
+Como seu objeto `app` do FastAPI fica em `app/main.py`, você pode configurar o `entrypoint` no seu arquivo `pyproject.toml` assim:
+
+```toml
+[tool.fastapi]
+entrypoint = "app.main:app"
+```
+
+isso é equivalente a importar como:
+
+```python
+from app.main import app
+```
+
+Dessa forma o comando `fastapi` saberá onde encontrar sua aplicação.
+
+/// Note | Nota
+
+Você também poderia passar o path para o comando, como:
+
+```console
+$ fastapi dev app/main.py
+```
+
+Mas você teria que lembrar de passar o path correto toda vez que chamar o comando `fastapi`.
+
+Além disso, outras ferramentas podem não conseguir encontrá-la, por exemplo a [Extensão do VS Code](../editor-support.md) ou a [FastAPI Cloud](https://fastapicloud.com), portanto é recomendável usar o `entrypoint` em `pyproject.toml`.
 
 ///
 
@@ -472,14 +495,14 @@ Agora, execute sua aplicação:
 <div class="termy">
 
 ```console
-$ fastapi dev app/main.py
+$ fastapi dev
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
 </div>
 
-E abra a documentação em <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+E abra a documentação em [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 Você verá a documentação automática da API, incluindo os paths de todos os submódulos, usando os paths (e prefixos) corretos e as tags corretas:
 
@@ -501,4 +524,16 @@ Da mesma forma que você pode incluir um `APIRouter` em uma aplicação `FastAPI
 router.include_router(other_router)
 ```
 
-Certifique-se de fazer isso antes de incluir `router` na aplicação `FastAPI`, para que as *operações de rota* de `other_router` também sejam incluídas.
+Você pode fazer isso antes ou depois de incluir o `router` na aplicação `FastAPI`. O FastAPI ainda incluirá as *operações de rota* de `other_router` no roteamento e no OpenAPI.
+
+O mesmo vale para *operações de rota* adicionadas depois aos routers. Elas também ficarão visíveis por meio da inclusão anterior.
+
+/// warning | Detalhes Técnicos
+
+Evite mutar diretamente `router.routes` após incluir um router. O FastAPI trata a inclusão de routers como algo ativo, então o router original e suas rotas permanecem parte do roteamento e da geração do OpenAPI.
+
+Use APIs documentadas como os decoradores de operações de rota e `.include_router()` para adicionar rotas e routers.
+
+Trate `router.routes` como uma árvore de rotas de nível mais baixo que pode conter definições de rotas e routers incluídos, e evite depender dela como uma lista plana de operações de rota finais.
+
+///

@@ -29,19 +29,19 @@ Para isso, primeiro importe:
 
 {* ../../docs_src/query_params_str_validations/tutorial002_an_py310.py hl[1,3] *}
 
-/// info | Informação
+/// note | Nota
 
 O FastAPI adicionou suporte a `Annotated` (e passou a recomendá-lo) na versão 0.95.0.
 
 Se você tiver uma versão mais antiga, teria erros ao tentar usar `Annotated`.
 
-Certifique-se de [Atualizar a versão do FastAPI](../deployment/versions.md#upgrading-the-fastapi-versions){.internal-link target=_blank} para pelo menos 0.95.1 antes de usar `Annotated`.
+Certifique-se de [Atualizar a versão do FastAPI](../deployment/versions.md#upgrading-the-fastapi-versions) para pelo menos 0.95.1 antes de usar `Annotated`.
 
 ///
 
 ## Use `Annotated` no tipo do parâmetro `q` { #use-annotated-in-the-type-for-the-q-parameter }
 
-Lembra que eu disse antes que `Annotated` pode ser usado para adicionar metadados aos seus parâmetros na [Introdução aos tipos do Python](../python-types.md#type-hints-with-metadata-annotations){.internal-link target=_blank}?
+Lembra que eu disse antes que `Annotated` pode ser usado para adicionar metadados aos seus parâmetros na [Introdução aos tipos do Python](../python-types.md#type-hints-with-metadata-annotations)?
 
 Agora é a hora de usá-lo com FastAPI. 🚀
 
@@ -158,7 +158,7 @@ Você poderia chamar essa mesma função em outros lugares sem FastAPI, e ela fu
 
 Quando você não usa `Annotated` e em vez disso usa o estilo de valor padrão (antigo), se você chamar essa função sem FastAPI em outros lugares, terá que lembrar de passar os argumentos para a função para que funcione corretamente, caso contrário os valores serão diferentes do esperado (por exemplo, `QueryInfo` ou algo parecido em vez de `str`). E seu editor não vai avisar, e o Python também não vai reclamar ao executar a função, apenas quando as operações internas falharem.
 
-Como `Annotated` pode ter mais de uma anotação de metadados, você agora pode até usar a mesma função com outras ferramentas, como o <a href="https://typer.tiangolo.com/" class="external-link" target="_blank">Typer</a>. 🚀
+Como `Annotated` pode ter mais de uma anotação de metadados, você agora pode até usar a mesma função com outras ferramentas, como o [Typer](https://typer.tiangolo.com/). 🚀
 
 ## Adicione mais validações { #add-more-validations }
 
@@ -298,7 +298,7 @@ Você também pode usar `list` diretamente em vez de `list[str]`:
 
 Tenha em mente que, neste caso, o FastAPI não verificará o conteúdo da lista.
 
-Por exemplo, `list[int]` verificaria (and documentaria) que os conteúdos da lista são inteiros. Mas `list` sozinho não.
+Por exemplo, `list[int]` verificaria (e documentaria) que os conteúdos da lista são inteiros. Mas `list` sozinho não.
 
 ///
 
@@ -370,11 +370,11 @@ Podem existir casos em que você precise fazer alguma validação personalizada 
 
 Nesses casos, você pode usar uma função validadora personalizada que é aplicada após a validação normal (por exemplo, depois de validar que o valor é uma `str`).
 
-Você pode fazer isso usando o <a href="https://docs.pydantic.dev/latest/concepts/validators/#field-after-validator" class="external-link" target="_blank">`AfterValidator` do Pydantic</a> dentro de `Annotated`.
+Você pode fazer isso usando o [`AfterValidator` do Pydantic](https://docs.pydantic.dev/latest/concepts/validators/#field-after-validator) dentro de `Annotated`.
 
 /// tip | Dica
 
-O Pydantic também tem <a href="https://docs.pydantic.dev/latest/concepts/validators/#field-before-validator" class="external-link" target="_blank">`BeforeValidator`</a> e outros. 🤓
+O Pydantic também tem [`BeforeValidator`](https://docs.pydantic.dev/latest/concepts/validators/#field-before-validator) e outros. 🤓
 
 ///
 
@@ -382,7 +382,7 @@ Por exemplo, este validador personalizado verifica se o ID do item começa com `
 
 {* ../../docs_src/query_params_str_validations/tutorial015_an_py310.py hl[5,16:19,24] *}
 
-/// info | Informação
+/// note | Nota
 
 Isso está disponível com a versão 2 do Pydantic ou superior. 😎
 
@@ -414,7 +414,7 @@ Percebeu? Uma string usando `value.startswith()` pode receber uma tupla, e verif
 
 Com `data.items()` obtemos um <dfn title="Algo que podemos iterar com um laço for, como uma list, set, etc.">objeto iterável</dfn> com tuplas contendo a chave e o valor de cada item do dicionário.
 
-Convertimos esse objeto iterável em uma `list` adequada com `list(data.items())`.
+Convertemos esse objeto iterável em uma `list` adequada com `list(data.items())`.
 
 Em seguida, com `random.choice()` podemos obter um valor aleatório da lista, então obtemos uma tupla com `(id, name)`. Será algo como `("imdb-tt0371724", "The Hitchhiker's Guide to the Galaxy")`.
 

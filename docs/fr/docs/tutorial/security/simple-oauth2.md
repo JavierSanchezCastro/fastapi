@@ -4,7 +4,7 @@ Construisons maintenant à partir du chapitre précédent et ajoutons les élém
 
 ## Obtenir `username` et `password` { #get-the-username-and-password }
 
-Nous allons utiliser les utilitaires de sécurité de **FastAPI** pour obtenir `username` et `password`.
+Nous allons utiliser les utilités de sécurité de **FastAPI** pour obtenir `username` et `password`.
 
 OAuth2 spécifie que lorsqu'on utilise le « password flow » (ce que nous utilisons), le client/utilisateur doit envoyer des champs `username` et `password` en tant que données de formulaire.
 
@@ -32,7 +32,7 @@ Ils sont normalement utilisés pour déclarer des permissions de sécurité spé
 * `instagram_basic` est utilisé par Facebook / Instagram.
 * `https://www.googleapis.com/auth/drive` est utilisé par Google.
 
-/// info
+/// note | Remarque
 
 En OAuth2, un « scope » est simplement une chaîne qui déclare une permission spécifique requise.
 
@@ -46,7 +46,7 @@ Pour OAuth2, ce ne sont que des chaînes.
 
 ## Écrire le code pour obtenir `username` et `password` { #code-to-get-the-username-and-password }
 
-Utilisons maintenant les utilitaires fournis par **FastAPI** pour gérer cela.
+Utilisons maintenant les utilités fournies par **FastAPI** pour gérer cela.
 
 ### `OAuth2PasswordRequestForm` { #oauth2passwordrequestform }
 
@@ -72,7 +72,7 @@ Si vous avez besoin de l'imposer, utilisez `OAuth2PasswordRequestFormStrict` au 
 * Un `client_id` optionnel (nous n'en avons pas besoin pour notre exemple).
 * Un `client_secret` optionnel (nous n'en avons pas besoin pour notre exemple).
 
-/// info
+/// note | Remarque
 
 La classe `OAuth2PasswordRequestForm` n'est pas une classe spéciale pour **FastAPI** comme l'est `OAuth2PasswordBearer`.
 
@@ -144,9 +144,9 @@ UserInDB(
 )
 ```
 
-/// info
+/// note | Remarque
 
-Pour une explication plus complète de `**user_dict`, consultez [la documentation pour **Modèles supplémentaires**](../extra-models.md#about-user-in-dict){.internal-link target=_blank}.
+Pour une explication plus complète de `**user_dict`, consultez [la documentation pour **Modèles supplémentaires**](../extra-models.md#about-user-in-dict).
 
 ///
 
@@ -196,7 +196,7 @@ Ainsi, dans notre endpoint, nous n'obtiendrons un utilisateur que si l'utilisate
 
 {* ../../docs_src/security/tutorial003_an_py310.py hl[58:66,69:74,94] *}
 
-/// info
+/// note | Remarque
 
 L'en‑tête supplémentaire `WWW-Authenticate` avec la valeur `Bearer` que nous renvoyons ici fait également partie de la spécification.
 
@@ -216,7 +216,7 @@ C'est l'avantage des standards ...
 
 ## Voir en action { #see-it-in-action }
 
-Ouvrez la documentation interactive : <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+Ouvrez la documentation interactive : [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 ### S'authentifier { #authenticate }
 

@@ -98,7 +98,7 @@ Por ejemplo, si tenías una sesión de base de datos en una dependencia con `yie
 
 Este comportamiento se revirtió en la 0.118.0, para hacer que el código de salida después de `yield` se ejecute después de que la response sea enviada.
 
-/// info | Información
+/// note | Nota
 
 Como verás abajo, esto es muy similar al comportamiento anterior a la versión 0.106.0, pero con varias mejoras y arreglos de bugs para casos límite.
 
@@ -132,7 +132,7 @@ Si tienes este caso de uso específico usando SQLModel (o SQLAlchemy), podrías 
 
 De esa manera la sesión liberaría la conexión a la base de datos, para que otras requests puedan usarla.
 
-Si tienes un caso de uso diferente que necesite salir temprano desde una dependencia con `yield`, por favor crea una <a href="https://github.com/fastapi/fastapi/discussions/new?category=questions" class="external-link" target="_blank">Pregunta de Discusión en GitHub</a> con tu caso de uso específico y por qué te beneficiaría tener cierre temprano para dependencias con `yield`.
+Si tienes un caso de uso diferente que necesite salir temprano desde una dependencia con `yield`, por favor crea una [Pregunta de Discusión en GitHub](https://github.com/fastapi/fastapi/discussions/new?category=questions) con tu caso de uso específico y por qué te beneficiaría tener cierre temprano para dependencias con `yield`.
 
 Si hay casos de uso convincentes para el cierre temprano en dependencias con `yield`, consideraría agregar una nueva forma de optar por el cierre temprano.
 
@@ -144,7 +144,7 @@ Esto cambió en la versión 0.110.0 para arreglar consumo de memoria no manejado
 
 ### Tareas en segundo plano y dependencias con `yield`, detalles técnicos { #background-tasks-and-dependencies-with-yield-technical-details }
 
-Antes de FastAPI 0.106.0, elevar excepciones después de `yield` no era posible, el código de salida en dependencias con `yield` se ejecutaba después de que la response era enviada, por lo que [Manejadores de Excepciones](../tutorial/handling-errors.md#install-custom-exception-handlers){.internal-link target=_blank} ya habrían corrido.
+Antes de FastAPI 0.106.0, elevar excepciones después de `yield` no era posible, el código de salida en dependencias con `yield` se ejecutaba después de que la response era enviada, por lo que [Manejadores de Excepciones](../tutorial/handling-errors.md#install-custom-exception-handlers) ya habrían corrido.
 
 Esto se diseñó así principalmente para permitir usar los mismos objetos devueltos con `yield` por las dependencias dentro de tareas en segundo plano, porque el código de salida se ejecutaría después de que las tareas en segundo plano terminaran.
 

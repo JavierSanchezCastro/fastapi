@@ -32,7 +32,7 @@ Diese werden normalerweise verwendet, um bestimmte Sicherheitsberechtigungen zu 
 * `instagram_basic` wird von Facebook / Instagram verwendet.
 * `https://www.googleapis.com/auth/drive` wird von Google verwendet.
 
-/// info | Info
+/// note | Hinweis
 
 In OAuth2 ist ein „Scope“ nur ein String, der eine bestimmte erforderliche Berechtigung deklariert.
 
@@ -72,7 +72,7 @@ Wenn Sie es erzwingen müssen, verwenden Sie `OAuth2PasswordRequestFormStrict` a
 * Eine optionale `client_id` (benötigen wir für unser Beispiel nicht).
 * Ein optionales `client_secret` (benötigen wir für unser Beispiel nicht).
 
-/// info | Info
+/// note | Hinweis
 
 `OAuth2PasswordRequestForm` ist keine spezielle Klasse für **FastAPI**, so wie `OAuth2PasswordBearer`.
 
@@ -144,9 +144,9 @@ UserInDB(
 )
 ```
 
-/// info | Info
+/// note | Hinweis
 
-Eine ausführlichere Erklärung von `**user_dict` finden Sie in [der Dokumentation für **Extra Modelle**](../extra-models.md#about-user-in-dict){.internal-link target=_blank}.
+Eine ausführlichere Erklärung von `**user_dict` finden Sie in [der Dokumentation für **Extra Modelle**](../extra-models.md#about-user-in-dict).
 
 ///
 
@@ -154,7 +154,7 @@ Eine ausführlichere Erklärung von `**user_dict` finden Sie in [der Dokumentati
 
 Die <abbr title="Response – Antwort: Daten, die der Server zum anfragenden Client zurücksendet">Response</abbr> des `token`-Endpunkts muss ein JSON-Objekt sein.
 
-Es sollte einen `token_type` haben. Da wir in unserem Fall „Bearer“-Token verwenden, sollte der Token-Typ "`bearer`" sein.
+Es sollte einen `token_type` haben. Da wir in unserem Fall „Bearer“-Token verwenden, sollte der Token-Typ „`bearer`“ sein.
 
 Und es sollte einen `access_token` haben, mit einem String, der unseren Zugriffstoken enthält.
 
@@ -196,7 +196,7 @@ In unserem Endpunkt erhalten wir also nur dann einen Benutzer, wenn der Benutzer
 
 {* ../../docs_src/security/tutorial003_an_py310.py hl[58:66,69:74,94] *}
 
-/// info | Info
+/// note | Hinweis
 
 Der zusätzliche Header `WWW-Authenticate` mit dem Wert `Bearer`, den wir hier zurückgeben, ist ebenfalls Teil der Spezifikation.
 
@@ -216,7 +216,7 @@ Das ist der Vorteil von Standards ...
 
 ## Es in Aktion sehen { #see-it-in-action }
 
-Öffnen Sie die interaktive Dokumentation: <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+Öffnen Sie die interaktive Dokumentation: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 ### Authentifizieren { #authenticate }
 

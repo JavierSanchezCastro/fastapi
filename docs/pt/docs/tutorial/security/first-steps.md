@@ -24,13 +24,13 @@ Copie o exemplo em um arquivo `main.py`:
 
 ## Execute-o { #run-it }
 
-/// info | Informação
+/// note | Nota
 
-O pacote <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a> é instalado automaticamente com o **FastAPI** quando você executa o comando `pip install "fastapi[standard]"`.
+O pacote [`python-multipart`](https://github.com/Kludex/python-multipart) é instalado automaticamente com o **FastAPI** quando você executa o comando `pip install "fastapi[standard]"`.
 
 Entretanto, se você usar o comando `pip install fastapi`, o pacote `python-multipart` não é incluído por padrão.
 
-Para instalá-lo manualmente, certifique-se de criar um [ambiente virtual](../../virtual-environments.md){.internal-link target=_blank}, ativá-lo e então instalá-lo com:
+Para instalá-lo manualmente, certifique-se de criar um [ambiente virtual](../../virtual-environments.md), ativá-lo e então instalá-lo com:
 
 ```console
 $ pip install python-multipart
@@ -45,7 +45,7 @@ Execute o exemplo com:
 <div class="termy">
 
 ```console
-$ fastapi dev main.py
+$ fastapi dev
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
@@ -54,13 +54,13 @@ $ fastapi dev main.py
 
 ## Verifique-o { #check-it }
 
-Vá até a documentação interativa em: <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+Vá até a documentação interativa em: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 Você verá algo deste tipo:
 
 <img src="/img/tutorial/security/image01.png">
 
-/// check | Botão Autorizar!
+/// tip | Botão Autorizar!
 
 Você já tem um novo botão 'Authorize'.
 
@@ -118,7 +118,7 @@ O **FastAPI** fornece várias ferramentas, em diferentes níveis de abstração,
 
 Neste exemplo, vamos usar **OAuth2**, com o fluxo **Password**, usando um token **Bearer**. Fazemos isso usando a classe `OAuth2PasswordBearer`.
 
-/// info | Informação
+/// note | Nota
 
 Um token "bearer" não é a única opção.
 
@@ -140,7 +140,7 @@ Aqui `tokenUrl="token"` refere-se a uma URL relativa `token` que ainda não cria
 
 Como estamos usando uma URL relativa, se sua API estivesse localizada em `https://example.com/`, então se referiria a `https://example.com/token`. Mas se sua API estivesse localizada em `https://example.com/api/v1/`, então se referiria a `https://example.com/api/v1/token`.
 
-Usar uma URL relativa é importante para garantir que sua aplicação continue funcionando mesmo em um caso de uso avançado como [Atrás de um Proxy](../../advanced/behind-a-proxy.md){.internal-link target=_blank}.
+Usar uma URL relativa é importante para garantir que sua aplicação continue funcionando mesmo em um caso de uso avançado como [Atrás de um Proxy](../../advanced/behind-a-proxy.md).
 
 ///
 
@@ -148,7 +148,7 @@ Esse parâmetro não cria aquele endpoint/operação de rota, mas declara que a 
 
 Em breve também criaremos a operação de rota real.
 
-/// info | Informação
+/// note | Nota
 
 Se você é um "Pythonista" muito rigoroso, pode não gostar do estilo do nome do parâmetro `tokenUrl` em vez de `token_url`.
 
@@ -176,7 +176,7 @@ Essa dependência fornecerá uma `str` que é atribuída ao parâmetro `token` d
 
 O **FastAPI** saberá que pode usar essa dependência para definir um "esquema de segurança" no esquema OpenAPI (e na documentação automática da API).
 
-/// info | Detalhes Técnicos
+/// note | Detalhes Técnicos
 
 O **FastAPI** saberá que pode usar a classe `OAuth2PasswordBearer` (declarada em uma dependência) para definir o esquema de segurança no OpenAPI porque ela herda de `fastapi.security.oauth2.OAuth2`, que por sua vez herda de `fastapi.security.base.SecurityBase`.
 

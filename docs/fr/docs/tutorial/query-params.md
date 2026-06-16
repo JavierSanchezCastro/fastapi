@@ -65,7 +65,7 @@ De la même façon, vous pouvez déclarer des paramètres de requête optionnels
 
 Dans ce cas, le paramètre de fonction `q` sera optionnel et vaudra `None` par défaut.
 
-/// check | Vérifications
+/// tip | Astuce
 
 Notez également que **FastAPI** est suffisamment intelligent pour remarquer que le paramètre de chemin `item_id` est un paramètre de chemin et que `q` ne l'est pas, c'est donc un paramètre de requête.
 
@@ -111,7 +111,7 @@ ou n'importe quelle autre variation de casse (tout en majuscules, uniquement la 
 
 ## Multiples paramètres de chemin et de requête { #multiple-path-and-query-parameters }
 
-Vous pouvez déclarer plusieurs paramètres de chemin et paramètres de requête en même temps, FastAPI sait lequel est lequel.
+Vous pouvez déclarer plusieurs paramètres de chemin et paramètres de requête en même temps, **FastAPI** sait lequel est lequel.
 
 Et vous n'avez pas besoin de les déclarer dans un ordre spécifique.
 
@@ -182,6 +182,6 @@ Dans ce cas, il y a 3 paramètres de requête :
 
 /// tip | Astuce
 
-Vous pourriez aussi utiliser des `Enum`s de la même façon qu'avec les [Paramètres de chemin](path-params.md#predefined-values){.internal-link target=_blank}.
+Vous pourriez aussi utiliser des `Enum`s de la même façon qu'avec les [Paramètres de chemin](path-params.md#predefined-values).
 
 ///

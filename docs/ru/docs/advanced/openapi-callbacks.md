@@ -35,7 +35,7 @@
 
 /// tip | Совет
 
-Query-параметр `callback_url` использует тип Pydantic <a href="https://docs.pydantic.dev/latest/api/networks/" class="external-link" target="_blank">Url</a>.
+Query-параметр `callback_url` использует тип Pydantic [Url](https://docs.pydantic.dev/latest/api/networks/).
 
 ///
 
@@ -66,7 +66,7 @@ httpx.post(callback_url, json={"description": "Invoice paid", "paid": True})
 
 Сам обратный вызов — это всего лишь HTTP-запрос.
 
-Реализуя обратный вызов, вы можете использовать, например, <a href="https://www.python-httpx.org" class="external-link" target="_blank">HTTPX</a> или <a href="https://requests.readthedocs.io/" class="external-link" target="_blank">Requests</a>.
+Реализуя обратный вызов, вы можете использовать, например, [HTTPX](https://www.python-httpx.org) или [Requests](https://requests.readthedocs.io/).
 
 ///
 
@@ -106,11 +106,11 @@ httpx.post(callback_url, json={"description": "Invoice paid", "paid": True})
 Есть 2 основных отличия от обычной *операции пути*:
 
 * Ей не нужен реальный код, потому что ваше приложение никогда не будет вызывать эту функцию. Она используется только для документирования *внешнего API*. Поэтому в функции может быть просто `pass`.
-* *Путь* может содержать <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#key-expression" class="external-link" target="_blank">выражение OpenAPI 3</a> (подробнее ниже), где можно использовать переменные с параметрами и части исходного HTTP-запроса, отправленного *вашему API*.
+* *Путь* может содержать [выражение OpenAPI 3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#key-expression) (подробнее ниже), где можно использовать переменные с параметрами и части исходного HTTP-запроса, отправленного *вашему API*.
 
 ### Выражение пути для обратного вызова { #the-callback-path-expression }
 
-*Путь* обратного вызова может содержать <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#key-expression" class="external-link" target="_blank">выражение OpenAPI 3</a>, которое может включать части исходного запроса, отправленного *вашему API*.
+*Путь* обратного вызова может содержать [выражение OpenAPI 3](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.1.0.md#key-expression), которое может включать части исходного запроса, отправленного *вашему API*.
 
 В нашем случае это `str`:
 
@@ -167,19 +167,19 @@ https://www.external.org/events/invoices/2expen51ve
 
 К этому моменту у вас есть необходимые *операции пути* обратного вызова (те, которые *внешний разработчик* должен реализовать во *внешнем API*) в созданном выше маршрутизаторе обратных вызовов.
 
-Теперь используйте параметр `callbacks` в *декораторе операции пути вашего API*, чтобы передать атрибут `.routes` (это, по сути, просто `list` маршрутов/*операций пути*) из этого маршрутизатора обратных вызовов:
+Теперь используйте параметр `callbacks` в *декораторе операции пути вашего API*, чтобы передать атрибут `.routes` из этого маршрутизатора обратных вызовов:
 
 {* ../../docs_src/openapi_callbacks/tutorial001_py310.py hl[33] *}
 
 /// tip | Совет
 
-Обратите внимание, что вы передаёте не сам маршрутизатор (`invoices_callback_router`) в `callback=`, а его атрибут `.routes`, то есть `invoices_callback_router.routes`.
+Обратите внимание, что вы передаёте не сам маршрутизатор (`invoices_callback_router`) в `callback=`, а его атрибут `.routes`, то есть `invoices_callback_router.routes`. FastAPI будет использовать эти маршруты для генерации документации OpenAPI для обратных вызовов.
 
 ///
 
 ### Проверьте документацию { #check-the-docs }
 
-Теперь вы можете запустить приложение и перейти по адресу <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>.
+Теперь вы можете запустить приложение и перейти по адресу [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
 Вы увидите документацию, включающую раздел «Callbacks» для вашей *операции пути*, который показывает, как должен выглядеть *внешний API*:
 

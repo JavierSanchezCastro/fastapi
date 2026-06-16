@@ -1,17 +1,17 @@
 # LLM-Testdatei { #llm-test-file }
 
-Dieses Dokument testet, ob das <abbr title="Large Language Model – Großes Sprachmodell">LLM</abbr>, das die Dokumentation übersetzt, den <abbr title="General Prompt – Allgemeiner Prompt">`general_prompt`</abbr> in `scripts/translate.py` und den sprachspezifischen Prompt in `docs/{language code}/llm-prompt.md` versteht. Der sprachspezifische Prompt wird an `general_prompt` angehängt.
+Dieses Dokument testet, ob das <abbr title="Large Language Model - Großes Sprachmodell">LLM</abbr>, das die Dokumentation übersetzt, den <abbr title="General Prompt - Allgemeiner Prompt">`general_prompt`</abbr> in `scripts/translate.py` und den sprachspezifischen Prompt in `docs/{language code}/llm-prompt.md` versteht. Der sprachsspezifische Prompt wird an `general_prompt` angehängt.
 
-Hier hinzugefügte Tests werden von allen Erstellern sprachspezifischer Prompts gesehen.
+Hier hinzugefügte Tests werden von allen Erstellern sprachsspezifischer Prompts gesehen.
 
 So verwenden:
 
-* Einen sprachspezifischen Prompt haben – `docs/{language code}/llm-prompt.md`.
+* Einen sprachsspezifischen Prompt haben – `docs/{language code}/llm-prompt.md`.
 * Eine frische Übersetzung dieses Dokuments in die gewünschte Zielsprache durchführen (siehe z. B. das Kommando `translate-page` der `translate.py`). Dadurch wird die Übersetzung unter `docs/{language code}/docs/_llm-test.md` erstellt.
 * Prüfen Sie, ob in der Übersetzung alles in Ordnung ist.
 * Verbessern Sie bei Bedarf Ihren sprachsspezifischen Prompt, den allgemeinen Prompt oder das englische Dokument.
 * Beheben Sie anschließend manuell die verbleibenden Probleme in der Übersetzung, sodass es eine gute Übersetzung ist.
-* Übersetzen Sie erneut, nachdem die gute Übersetzung vorliegt. Das ideale Ergebnis wäre, dass das LLM an der Übersetzung keine Änderungen mehr vornimmt. Das bedeutet, dass der allgemeine Prompt und Ihr sprachsspezifischer Prompt so gut sind, wie sie sein können (Es wird manchmal ein paar scheinbar zufällige Änderungen machen, der Grund ist, dass <a href="https://doublespeak.chat/#/handbook#deterministic-output" class="external-link" target="_blank">LLMs keine deterministischen Algorithmen sind</a>).
+* Übersetzen Sie erneut, nachdem die gute Übersetzung vorliegt. Das ideale Ergebnis wäre, dass das LLM an der Übersetzung keine Änderungen mehr vornimmt. Das bedeutet, dass der allgemeine Prompt und Ihr sprachsspezifischer Prompt so gut sind, wie sie sein können (Es wird manchmal ein paar scheinbar zufällige Änderungen machen, der Grund ist, dass [LLMs keine deterministischen Algorithmen sind](https://doublespeak.chat/#/handbook#deterministic-output)).
 
 Die Tests:
 
@@ -95,7 +95,7 @@ $ <font color="#4E9A06">fastapi</font> run <u style="text-decoration-style:solid
 ... und noch ein Konsolen-Codebeispiel ...
 
 ```console
-// Ein Verzeichnis „Code“ erstellen
+// Ein Verzeichnis "Code" erstellen
 $ mkdir code
 // In dieses Verzeichnis wechseln
 $ cd code
@@ -124,19 +124,11 @@ Siehe Abschnitt `### Content of code blocks` im allgemeinen Prompt in `scripts/t
 
 //// tab | Test
 
-/// info | Info
-Etwas Text
-///
-
 /// note | Hinweis
 Etwas Text
 ///
 
 /// note | Technische Details
-Etwas Text
-///
-
-/// check | Testen
 Etwas Text
 ///
 
@@ -169,15 +161,15 @@ Siehe die Abschnitte `### Special blocks` und `### Tab blocks` im allgemeinen Pr
 Der Linktext sollte übersetzt werden, die Linkadresse sollte unverändert bleiben:
 
 * [Link zur Überschrift oben](#code-snippets)
-* [Interner Link](index.md#installation){.internal-link target=_blank}
-* <a href="https://sqlmodel.tiangolo.com/" class="external-link" target="_blank">Externer Link</a>
-* <a href="https://fastapi.tiangolo.com/css/styles.css" class="external-link" target="_blank">Link zu einem Stil</a>
-* <a href="https://fastapi.tiangolo.com/js/logic.js" class="external-link" target="_blank">Link zu einem Skript</a>
-* <a href="https://fastapi.tiangolo.com/img/foo.jpg" class="external-link" target="_blank">Link zu einem Bild</a>
+* [Interner Link](index.md#installation)
+* [Externer Link](https://sqlmodel.tiangolo.com/)
+* [Link zu einem Stil](https://fastapi.tiangolo.com/css/styles.css)
+* [Link zu einem Skript](https://fastapi.tiangolo.com/js/logic.js)
+* [Link zu einem Bild](https://fastapi.tiangolo.com/img/foo.jpg)
 
 Der Linktext sollte übersetzt werden, die Linkadresse sollte auf die Übersetzung zeigen:
 
-* <a href="https://fastapi.tiangolo.com/de/" class="external-link" target="_blank">FastAPI-Link</a>
+* [FastAPI-Link](https://fastapi.tiangolo.com/de/)
 
 ////
 
@@ -197,15 +189,15 @@ Hier einige Dinge, die in HTML-„abbr“-Elemente gepackt sind (einige sind erf
 
 ### Das abbr gibt eine vollständige Phrase { #the-abbr-gives-a-full-phrase }
 
-* <abbr title="Getting Things Done – Dinge erledigt bekommen">GTD</abbr>
-* <abbr title="less than – kleiner als"><code>lt</code></abbr>
+* <abbr title="Getting Things Done - Dinge erledigt bekommen">GTD</abbr>
+* <abbr title="less than - kleiner als"><code>lt</code></abbr>
 * <abbr title="XML Web Token">XWT</abbr>
 * <abbr title="Paralleles Server-Gateway-Interface">PSGI</abbr>
 
 ### Das abbr gibt eine vollständige Phrase und eine Erklärung { #the-abbr-gives-a-full-phrase-and-an-explanation }
 
-* <abbr title="Mozilla Developer Network – Mozilla-Entwicklernetzwerk: Dokumentation für Entwickler, geschrieben von den Firefox-Leuten">MDN</abbr>
-* <abbr title="Input/Output – Eingabe/Ausgabe: Lesen oder Schreiben auf der Festplatte, Netzwerkkommunikation.">I/O</abbr>.
+* <abbr title="Mozilla Developer Network - Mozilla-Entwicklernetzwerk: Dokumentation für Entwickler, geschrieben von den Firefox-Leuten">MDN</abbr>
+* <abbr title="Input/Output - Eingabe/Ausgabe: Lesen oder Schreiben auf der Festplatte, Netzwerkkommunikation.">I/O</abbr>.
 
 ////
 

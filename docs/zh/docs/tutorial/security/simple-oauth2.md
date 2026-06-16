@@ -32,7 +32,7 @@ OAuth2 还支持客户端发送**`scope`**表单字段。
 * 脸书和 Instagram 使用 `instagram_basic`
 * 谷歌使用 `https://www.googleapis.com/auth/drive`
 
-/// info | 信息
+/// note | 注意
 
 OAuth2 中，**作用域**只是声明指定权限的字符串。
 
@@ -72,7 +72,7 @@ OAuth2 中，**作用域**只是声明指定权限的字符串。
 * 可选的 `client_id`（本例未使用）
 * 可选的 `client_secret`（本例未使用）
 
-/// info | 信息
+/// note | 注意
 
 `OAuth2PasswordRequestForm` 并不像 `OAuth2PasswordBearer` 那样是 **FastAPI** 的特殊类。
 
@@ -144,9 +144,9 @@ UserInDB(
 )
 ```
 
-/// info | 信息
+/// note | 注意
 
-`user_dict` 的说明，详见[**更多模型**一章](../extra-models.md#about-user-in-dict){.internal-link target=_blank}。
+`user_dict` 的说明，详见[**更多模型**一章](../extra-models.md#about-user-in-dict)。
 
 ///
 
@@ -196,7 +196,7 @@ UserInDB(
 
 {* ../../docs_src/security/tutorial003_an_py310.py hl[58:66,69:74,94] *}
 
-/// info | 信息
+/// note | 注意
 
 此处返回值为 `Bearer` 的响应头 `WWW-Authenticate` 也是规范的一部分。
 
@@ -216,7 +216,7 @@ UserInDB(
 
 ## 实际效果 { #see-it-in-action }
 
-打开 API 文档：<a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+打开交互式文档：[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)。
 
 ### 身份验证 { #authenticate }
 

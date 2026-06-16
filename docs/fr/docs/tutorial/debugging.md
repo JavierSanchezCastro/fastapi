@@ -72,9 +72,9 @@ Ainsi, la ligne :
 
 ne sera pas exécutée.
 
-/// info
+/// note | Remarque
 
-Pour plus d'informations, consultez <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">la documentation officielle de Python</a>.
+Pour plus d'informations, consultez [la documentation officielle de Python](https://docs.python.org/3/library/__main__.html).
 
 ///
 

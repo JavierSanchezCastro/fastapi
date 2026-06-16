@@ -65,7 +65,7 @@ http://127.0.0.1:8000/items/?skip=20
 
 在這種情況下，函式參數 `q` 為選用，且預設為 `None`。
 
-/// check | 注意
+/// tip | 提示
 
 另外請注意，FastAPI 能辨識出路徑參數 `item_id` 是路徑參數，而 `q` 不是，因此 `q` 會被當作查詢參數。
 
@@ -182,6 +182,6 @@ http://127.0.0.1:8000/items/foo-item?needy=sooooneedy
 
 /// tip | 提示
 
-你也可以像在[路徑參數](path-params.md#predefined-values){.internal-link target=_blank}中一樣使用 `Enum`。
+你也可以像在[路徑參數](path-params.md#predefined-values)中一樣使用 `Enum`。
 
 ///

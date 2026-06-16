@@ -120,7 +120,7 @@ async with lifespan(app):
 
 此处，`shutdown` 事件处理器函数会向文件 `log.txt` 写入一行文本 `"Application shutdown"`。
 
-/// info | 信息
+/// note | 注意
 
 在 `open()` 函数中，`mode="a"` 指的是“追加”。因此这行文本会添加在文件已有内容之后，不会覆盖之前的内容。
 
@@ -150,11 +150,11 @@ async with lifespan(app):
 
 只是为好奇者提供的技术细节。🤓
 
-在底层，这部分是 ASGI 技术规范中的 <a href="https://asgi.readthedocs.io/en/latest/specs/lifespan.html" class="external-link" target="_blank">Lifespan 协议</a>的一部分，定义了称为 `startup` 和 `shutdown` 的事件。
+在底层，这部分是 ASGI 技术规范中的 [Lifespan 协议](https://asgi.readthedocs.io/en/latest/specs/lifespan.html)的一部分，定义了称为 `startup` 和 `shutdown` 的事件。
 
-/// info | 信息
+/// note | 注意
 
-你可以在 <a href="https://www.starlette.dev/lifespan/" class="external-link" target="_blank">Starlette 的 Lifespan 文档</a> 中阅读更多关于 `lifespan` 处理器的内容。
+你可以在 [Starlette 的 Lifespan 文档](https://www.starlette.dev/lifespan/) 中阅读更多关于 `lifespan` 处理器的内容。
 
 包括如何处理生命周期状态，以便在代码的其他部分使用。
 
@@ -162,4 +162,4 @@ async with lifespan(app):
 
 ## 子应用 { #sub-applications }
 
-🚨 请注意，这些生命周期事件（startup 和 shutdown）只会在主应用上执行，不会在[子应用 - 挂载](sub-applications.md){.internal-link target=_blank}上执行。
+🚨 请注意，这些生命周期事件（startup 和 shutdown）只会在主应用上执行，不会在[子应用 - 挂载](sub-applications.md)上执行。

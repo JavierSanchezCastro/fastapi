@@ -32,7 +32,7 @@ OAuth2 では、「password flow」（ここで使用するフロー）を使う
 - `instagram_basic` は Facebook / Instagram で使われます。
 - `https://www.googleapis.com/auth/drive` は Google で使われます。
 
-/// info | 情報
+/// note | 備考
 
 OAuth2 における「スコープ」は、要求される特定の権限を表す単なる文字列です。
 
@@ -72,7 +72,7 @@ OAuth2 の仕様では、固定値 `password` を持つフィールド `grant_ty
 - オプションの `client_id`（この例では不要）
 - オプションの `client_secret`（この例では不要）
 
-/// info | 情報
+/// note | 備考
 
 `OAuth2PasswordRequestForm` は、`OAuth2PasswordBearer` のように **FastAPI** にとって特別なクラスではありません。
 
@@ -144,9 +144,9 @@ UserInDB(
 )
 ```
 
-/// info | 情報
+/// note | 備考
 
-`**user_dict` のより完全な解説は、[**追加モデル**のドキュメント](../extra-models.md#about-user-in-dict){.internal-link target=_blank}を参照してください。
+`**user_dict` のより完全な解説は、[**追加モデル**のドキュメント](../extra-models.md#about-user-in-dict)を参照してください。
 
 ///
 
@@ -188,7 +188,7 @@ UserInDB(
 
 アクティブなユーザーの場合にのみ `current_user` を取得したいとします。
 
-そこで、`get_current_user` を依存関係として利用する追加の依存関係 `get_current_active_user` を作成します。
+そこで、`get_current_active_user` を依存関係として利用する追加の依存関係 `get_current_active_user` を作成します。
 
 これら2つの依存関係は、ユーザーが存在しない、または非アクティブである場合に、HTTPエラーを返すだけです。
 
@@ -196,7 +196,7 @@ UserInDB(
 
 {* ../../docs_src/security/tutorial003_an_py310.py hl[58:66,69:74,94] *}
 
-/// info | 情報
+/// note | 備考
 
 ここで返している値が `Bearer` の追加ヘッダー `WWW-Authenticate` も仕様の一部です。
 
@@ -216,7 +216,7 @@ HTTP（エラー）ステータスコード 401「UNAUTHORIZED」は、`WWW-Auth
 
 ## 動作確認 { #see-it-in-action }
 
-インタラクティブドキュメントを開きます: <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>。
+インタラクティブドキュメントを開きます: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)。
 
 ### 認証 { #authenticate }
 

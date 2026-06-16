@@ -46,7 +46,7 @@ Ils sont généralement utilisés pour déclarer des permissions de sécurité s
 * `instagram_basic` est utilisé par Facebook / Instagram.
 * `https://www.googleapis.com/auth/drive` est utilisé par Google.
 
-/// info
+/// note | Remarque
 
 Dans OAuth2, un « scope » est simplement une chaîne qui déclare une permission spécifique requise.
 
@@ -60,7 +60,7 @@ Pour OAuth2, ce ne sont que des chaînes.
 
 ## Vue d’ensemble { #global-view }
 
-Voyons d’abord rapidement les parties qui changent par rapport aux exemples du **Tutoriel - Guide utilisateur** pour [OAuth2 avec mot de passe (et hachage), Bearer avec jetons JWT](../../tutorial/security/oauth2-jwt.md){.internal-link target=_blank}. Cette fois, en utilisant des scopes OAuth2 :
+Voyons d’abord rapidement les parties qui changent par rapport aux exemples du **Tutoriel - Guide utilisateur** pour [OAuth2 avec mot de passe (et hachage), Bearer avec jetons JWT](../../tutorial/security/oauth2-jwt.md). Cette fois, en utilisant des scopes OAuth2 :
 
 {* ../../docs_src/security/tutorial005_an_py310.py hl[5,9,13,47,65,106,108:116,122:126,130:136,141,157] *}
 
@@ -126,7 +126,7 @@ Nous le faisons ici pour montrer comment **FastAPI** gère des scopes déclarés
 
 {* ../../docs_src/security/tutorial005_an_py310.py hl[5,141,172] *}
 
-/// info | Détails techniques
+/// note | Détails techniques
 
 `Security` est en réalité une sous-classe de `Depends`, et elle n’a qu’un paramètre supplémentaire que nous verrons plus tard.
 
@@ -271,4 +271,4 @@ Mais au final, ils implémentent le même standard OAuth2.
 
 ## `Security` dans les dépendances du décorateur `dependencies` { #security-in-decorator-dependencies }
 
-De la même manière que vous pouvez définir une `list` de `Depends` dans le paramètre `dependencies` du décorateur (comme expliqué dans [Dépendances dans les décorateurs de chemins d’accès](../../tutorial/dependencies/dependencies-in-path-operation-decorators.md){.internal-link target=_blank}), vous pouvez aussi utiliser `Security` avec des `scopes` à cet endroit.
+De la même manière que vous pouvez définir une `list` de `Depends` dans le paramètre `dependencies` du décorateur (comme expliqué dans [Dépendances dans les décorateurs de chemins d’accès](../../tutorial/dependencies/dependencies-in-path-operation-decorators.md)), vous pouvez aussi utiliser `Security` avec des `scopes` à cet endroit.

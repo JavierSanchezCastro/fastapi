@@ -96,7 +96,7 @@ Là encore, avec cette simple déclaration, avec FastAPI vous obtenez :
 
 Outre les types singuliers normaux comme `str`, `int`, `float`, etc. vous pouvez utiliser des types singuliers plus complexes qui héritent de `str`.
 
-Pour voir toutes les options dont vous disposez, consultez <a href="https://docs.pydantic.dev/latest/concepts/types/" class="external-link" target="_blank">l’aperçu des types de Pydantic</a>. Vous verrez quelques exemples au chapitre suivant.
+Pour voir toutes les options dont vous disposez, consultez [l’aperçu des types de Pydantic](https://docs.pydantic.dev/latest/concepts/types/). Vous verrez quelques exemples au chapitre suivant.
 
 Par exemple, comme dans le modèle `Image` nous avons un champ `url`, nous pouvons le déclarer comme instance de `HttpUrl` de Pydantic au lieu de `str` :
 
@@ -135,7 +135,7 @@ Cela attendra (convertira, validera, documentera, etc.) un corps JSON comme :
     ]
 }
 ```
-/// info
+/// note | Remarque
 
 Remarquez que la clé `images` contient maintenant une liste d'objets image.
 
@@ -147,7 +147,7 @@ Vous pouvez définir des modèles imbriqués à une profondeur arbitraire :
 
 {* ../../docs_src/body_nested_models/tutorial007_py310.py hl[7,12,18,21,25] *}
 
-/// info
+/// note | Remarque
 
 Remarquez que `Offer` a une liste d’`Item`, qui à leur tour ont une liste optionnelle d’`Image`.
 

@@ -65,7 +65,7 @@ Por exemplo, nós podemos definir um modelo `Image`:
 
 ### Use o sub-modelo como um tipo { #use-the-submodel-as-a-type }
 
-E então podemos usa-lo como o tipo de um atributo:
+E então podemos usá-lo como o tipo de um atributo:
 
 {* ../../docs_src/body_nested_models/tutorial004_py310.py hl[18] *}
 
@@ -90,15 +90,15 @@ Novamente, apenas fazendo essa declaração, com o **FastAPI**, você ganha:
 * Suporte do editor (preenchimento automático, etc.), inclusive para modelos aninhados
 * Conversão de dados
 * Validação de dados
-* Documentação automatica
+* Documentação automática
 
 ## Tipos especiais e validação { #special-types-and-validation }
 
 Além dos tipos singulares normais como `str`, `int`, `float`, etc. Você também pode usar tipos singulares mais complexos que herdam de `str`.
 
-Para ver todas as opções possíveis, consulte a <a href="https://docs.pydantic.dev/latest/concepts/types/" class="external-link" target="_blank">Visão geral dos tipos do Pydantic</a>. Você verá alguns exemplos no próximo capítulo.
+Para ver todas as opções possíveis, consulte a [Visão geral dos tipos do Pydantic](https://docs.pydantic.dev/latest/concepts/types/). Você verá alguns exemplos no próximo capítulo.
 
-Por exemplo, no modelo `Image` nós temos um campo `url`, nós podemos declara-lo como um `HttpUrl` do Pydantic invés de como uma `str`:
+Por exemplo, no modelo `Image` nós temos um campo `url`, nós podemos declará-lo como um `HttpUrl` do Pydantic invés de como uma `str`:
 
 {* ../../docs_src/body_nested_models/tutorial005_py310.py hl[2,8] *}
 
@@ -110,7 +110,7 @@ Você também pode usar modelos Pydantic como subtipos de `list`, `set`, etc:
 
 {* ../../docs_src/body_nested_models/tutorial006_py310.py hl[18] *}
 
-Isso vai esperar(converter, validar, documentar, etc) um corpo JSON tal qual:
+Isso vai esperar (converter, validar, documentar, etc) um corpo JSON tal qual:
 
 ```JSON hl_lines="11"
 {
@@ -136,7 +136,7 @@ Isso vai esperar(converter, validar, documentar, etc) um corpo JSON tal qual:
 }
 ```
 
-/// info | Informação
+/// note | Nota
 
 Observe como a chave `images` agora tem uma lista de objetos de imagem.
 
@@ -148,7 +148,7 @@ Você pode definir modelos profundamente aninhados de forma arbitrária:
 
 {* ../../docs_src/body_nested_models/tutorial007_py310.py hl[7,12,18,21,25] *}
 
-/// info | Informação
+/// note | Nota
 
 Observe como `Offer` tem uma lista de `Item`s, que por sua vez têm uma lista opcional de `Image`s
 
@@ -198,7 +198,7 @@ Neste caso, você aceitaria qualquer `dict`, desde que tenha chaves` int` com va
 
 /// tip | Dica
 
-Leve em condideração que o JSON só suporta `str` como chaves.
+Leve em consideração que o JSON só suporta `str` como chaves.
 
 Mas o Pydantic tem conversão automática de dados.
 

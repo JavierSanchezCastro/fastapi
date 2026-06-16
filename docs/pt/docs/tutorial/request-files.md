@@ -2,11 +2,11 @@
 
 Você pode definir arquivos para serem enviados pelo cliente usando `File`.
 
-/// info | Informação
+/// note | Nota
 
-Para receber arquivos enviados, primeiro instale o <a href="https://github.com/Kludex/python-multipart" class="external-link" target="_blank">`python-multipart`</a>.
+Para receber arquivos enviados, primeiro instale [`python-multipart`](https://github.com/Kludex/python-multipart).
 
-Garanta que você criou um [ambiente virtual](../virtual-environments.md){.internal-link target=_blank}, o ativou e então o instalou, por exemplo:
+Garanta que você criou um [ambiente virtual](../virtual-environments.md), o ativou e então o instalou, por exemplo:
 
 ```console
 $ pip install python-multipart
@@ -28,7 +28,7 @@ Crie parâmetros de arquivo da mesma forma que você faria para `Body` ou `Form`
 
 {* ../../docs_src/request_files/tutorial001_an_py310.py hl[9] *}
 
-/// info | Informação
+/// note | Nota
 
 `File` é uma classe que herda diretamente de `Form`.
 
@@ -63,8 +63,8 @@ Utilizar `UploadFile` tem várias vantagens sobre `bytes`:
     * Um arquivo armazenado na memória até um limite máximo de tamanho, e após passar esse limite, ele será armazenado no disco.
 * Isso significa que funcionará bem para arquivos grandes como imagens, vídeos, binários grandes, etc., sem consumir toda a memória.
 * Você pode receber metadados do arquivo enviado.
-* Ele tem uma <a href="https://docs.python.org/3/glossary.html#term-file-like-object" class="external-link" target="_blank">file-like</a> interface `assíncrona`.
-* Ele expõe um objeto python <a href="https://docs.python.org/3/library/tempfile.html#tempfile.SpooledTemporaryFile" class="external-link" target="_blank">`SpooledTemporaryFile`</a> que você pode passar diretamente para outras bibliotecas que esperam um objeto semelhante a um arquivo("file-like").
+* Ele tem uma [file-like](https://docs.python.org/3/glossary.html#term-file-like-object) interface `assíncrona`.
+* Ele expõe um objeto python [`SpooledTemporaryFile`](https://docs.python.org/3/library/tempfile.html#tempfile.SpooledTemporaryFile) que você pode passar diretamente para outras bibliotecas que esperam um objeto semelhante a um arquivo.
 
 ### `UploadFile` { #uploadfile }
 
@@ -72,7 +72,7 @@ Utilizar `UploadFile` tem várias vantagens sobre `bytes`:
 
 * `filename`: Uma `str` com o nome do arquivo original que foi enviado (por exemplo, `myimage.jpg`).
 * `content_type`: Uma `str` com o tipo de conteúdo (MIME type / media type) (por exemplo, `image/jpeg`).
-* `file`: Um <a href="https://docs.python.org/3/library/tempfile.html#tempfile.SpooledTemporaryFile" class="external-link" target="_blank">`SpooledTemporaryFile`</a> (um <a href="https://docs.python.org/3/glossary.html#term-file-like-object" class="external-link" target="_blank">file-like</a> objeto). Este é o objeto de arquivo Python que você pode passar diretamente para outras funções ou bibliotecas que esperam um objeto semelhante a um arquivo("file-like").
+* `file`: Um [`SpooledTemporaryFile`](https://docs.python.org/3/library/tempfile.html#tempfile.SpooledTemporaryFile) (um [file-like](https://docs.python.org/3/glossary.html#term-file-like-object) objeto). Este é o objeto de arquivo Python que você pode passar diretamente para outras funções ou bibliotecas que esperam um objeto semelhante a um arquivo.
 
 `UploadFile` tem os seguintes métodos `assíncronos`. Todos eles chamam os métodos de arquivo correspondentes por baixo dos panos (usando o `SpooledTemporaryFile` interno).
 
@@ -121,7 +121,7 @@ Dados de formulários normalmente são codificados usando o "media type" `applic
 
 Mas quando o formulário inclui arquivos, ele é codificado como `multipart/form-data`. Se você usar `File`, o **FastAPI** saberá que tem que pegar os arquivos da parte correta do corpo da requisição.
 
-Se você quiser ler mais sobre essas codificações e campos de formulário, vá para a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST" class="external-link" target="_blank"><abbr title="Mozilla Developer Network - Rede de Desenvolvedores da Mozilla">MDN</abbr> web docs para <code>POST</code></a>.
+Se você quiser ler mais sobre essas codificações e campos de formulário, vá para a [<abbr title="Mozilla Developer Network - Rede de Desenvolvedores da Mozilla">MDN</abbr> web docs para `POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST).
 
 ///
 

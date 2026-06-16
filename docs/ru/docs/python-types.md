@@ -172,7 +172,7 @@ def some_function(data: Any):
 
 {* ../../docs_src/python_types/tutorial006_py310.py hl[1] *}
 
-/// info | Информация
+/// note | Примечание
 
 Эти внутренние типы в квадратных скобках называются «параметрами типов».
 
@@ -269,7 +269,7 @@ def some_function(data: Any):
 
 ## Pydantic-модели { #pydantic-models }
 
-<a href="https://docs.pydantic.dev/" class="external-link" target="_blank">Pydantic</a> — это библиотека Python для валидации данных.
+[Pydantic](https://docs.pydantic.dev/) — это библиотека Python для валидации данных.
 
 Вы объявляете «форму» данных как классы с атрибутами.
 
@@ -283,15 +283,15 @@ def some_function(data: Any):
 
 {* ../../docs_src/python_types/tutorial011_py310.py *}
 
-/// info | Информация
+/// note | Примечание
 
-Чтобы узнать больше о <a href="https://docs.pydantic.dev/" class="external-link" target="_blank">Pydantic, ознакомьтесь с его документацией</a>.
+Чтобы узнать больше о [Pydantic, ознакомьтесь с его документацией](https://docs.pydantic.dev/).
 
 ///
 
 **FastAPI** целиком основан на Pydantic.
 
-Вы увидите намного больше всего этого на практике в [Учебник - Руководство пользователя](tutorial/index.md){.internal-link target=_blank}.
+Вы увидите намного больше всего этого на практике в [Учебник - Руководство пользователя](tutorial/index.md).
 
 ## Подсказки типов с аннотациями метаданных { #type-hints-with-metadata-annotations }
 
@@ -337,12 +337,12 @@ def some_function(data: Any):
 * **Документирования** API с использованием OpenAPI:
     * что затем используется пользовательскими интерфейсами автоматической интерактивной документации.
 
-Всё это может звучать абстрактно. Не волнуйтесь. Вы увидите всё это в действии в [Учебник - Руководство пользователя](tutorial/index.md){.internal-link target=_blank}.
+Всё это может звучать абстрактно. Не волнуйтесь. Вы увидите всё это в действии в [Учебник - Руководство пользователя](tutorial/index.md).
 
 Важно то, что, используя стандартные типы Python в одном месте (вместо добавления дополнительных классов, декораторов и т.д.), **FastAPI** сделает за вас большую часть работы.
 
-/// info | Информация
+/// note | Примечание
 
-Если вы уже прошли всё руководство и вернулись, чтобы узнать больше о типах, хорошим ресурсом будет <a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html" class="external-link" target="_blank">«шпаргалка» от `mypy`</a>.
+Если вы уже прошли всё руководство и вернулись, чтобы узнать больше о типах, хорошим ресурсом будет [«шпаргалка» от `mypy`](https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html).
 
 ///

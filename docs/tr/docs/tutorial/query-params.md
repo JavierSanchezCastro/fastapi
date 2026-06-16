@@ -46,7 +46,7 @@ http://127.0.0.1:8000/items/
 http://127.0.0.1:8000/items/?skip=0&limit=10
 ```
 
-Namunak örneğin şuraya giderseniz:
+Ancak örneğin şuraya giderseniz:
 
 ```
 http://127.0.0.1:8000/items/?skip=20
@@ -65,7 +65,7 @@ Aynı şekilde, varsayılan değerlerini `None` yaparak isteğe bağlı query pa
 
 Bu durumda, fonksiyon parametresi `q` isteğe bağlı olur ve varsayılan olarak `None` olur.
 
-/// check | Ek bilgi
+/// tip | İpucu
 
 Ayrıca, **FastAPI** path parametresi olan `item_id`'nin bir path parametresi olduğunu ve `q`'nun path olmadığını fark edecek kadar akıllıdır; dolayısıyla bu bir query parametresidir.
 
@@ -183,6 +183,6 @@ Bu durumda, 3 tane query parametresi vardır:
 
 /// tip | İpucu
 
-[Path Parametreleri](path-params.md#predefined-values){.internal-link target=_blank} ile aynı şekilde `Enum`'ları da kullanabilirsiniz.
+[Path Parametreleri](path-params.md#predefined-values) ile aynı şekilde `Enum`'ları da kullanabilirsiniz.
 
 ///

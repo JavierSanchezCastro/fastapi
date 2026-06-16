@@ -72,9 +72,9 @@ from myapp import app
 
 не будет выполнена.
 
-/// info | Информация
+/// note | Примечание
 
-Для получения дополнительной информации, ознакомьтесь с <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">официальной документацией Python</a>.
+Для получения дополнительной информации, ознакомьтесь с [официальной документацией Python](https://docs.python.org/3/library/__main__.html).
 
 ///
 
